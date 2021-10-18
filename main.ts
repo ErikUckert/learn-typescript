@@ -129,3 +129,60 @@ class Line {
 
 let line = new Line([1,2], [3,4]);
 line.drawLine();
+
+// -- > Wrapping this up with Typescript Magic
+// the ? makes the arguments optional
+class ThinLine {
+    constructor(private pointA?: number[], private pointB?: number[]) {
+
+    }
+
+    drawLine() {
+        console.log("Line between Point " + this.pointA + " and Point "+ this.pointB);
+    }
+}
+
+let thinLine = new ThinLine([1,2], [1.5, 2.5])
+thinLine.drawLine();
+
+// --> Methods
+
+class Rectangle {
+    constructor(private pointA?: number[], private pointB?: number[], private pointC?: number[]) {
+
+    }
+    getPoints() {
+        return [this.pointA, this.pointB, this.pointC];
+    }
+}
+
+let reactangle = new Rectangle([1,2], [3,4], [5,6]);
+console.log(reactangle.getPoints());
+
+// --> It get's even better with Properties
+
+class PropPoint {
+    constructor(private _point?: number[]) {
+
+    }
+    set pointX(x) {
+        if (x < 0)
+            throw new Error("Coordinates must be below 0");
+        this._point[0] = x;
+
+    }
+
+    get pointX() {
+        return this._point[0];
+    }
+}
+
+let propPoint = new PropPoint([2,3]);
+propPoint.pointX = 4;
+console.log("The X-Coordinate is: " + propPoint.pointX);
+
+// --> Fun with modules
+import { ModPoint } from "./modPoint";
+
+let modPoint = new ModPoint([4,5]);
+console.log("The X-Coordinate is: " + modPoint.pointX);
